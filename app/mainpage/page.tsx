@@ -52,7 +52,7 @@ export default function App() {
         </div>
         <div className="md:w-1/2">
           <img
-            src="https://cdn.pixabay.com/photo/2020/04/27/20/23/doctor-5106768_1280.png"
+            src="https://www.google.com/imgres?imgurl=https://t3.ftcdn.net/jpg/06/44/85/72/360_F_644857286_zVtIH5KLEYR4mhDLcrbPl5ZYnuuUYurA.jpg&tbnid=LaCihinqxcBiDM&vet=1&imgrefurl=https://stock.adobe.com/search?k%3Ddoctor%2Bclipart&docid=2ykiH9qe9r7UFM&w=360&h=360&source=sh/x/im/m5/2&kgs=91762d8eed35ccd9"
             alt="Doctor illustration"
             className="rounded-lg shadow-lg"
           />
@@ -66,18 +66,18 @@ export default function App() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-[#a3b38c] rounded-lg p-6 shadow-lg">
-            <h4 className="font-bold mb-2">Health Record Organizer</h4>
-            <p className="text-sm mb-4">Securely store and access all your medical records in one organized, easy-to-navigate timeline.</p>
+            <h4 className="font-bold mb-2">Digital Health Records for Patients</h4>
+            <p className="text-sm mb-4">Patients can log in to view appointments, prescriptions, and health alerts — all in one place.</p>
             <button className="bg-[#3f3a1e] text-white text-xs px-4 py-2 rounded-full">EXPLORE THIS FEATURE</button>
           </div>
           <div className="bg-[#a3b38c] rounded-lg p-6 shadow-lg">
-            <h4 className="font-bold mb-2">AI-Powered Symptom Checker & Triage Bot</h4>
-            <p className="text-sm mb-4">Describe your symptoms and get instant, intelligent suggestions on remedies or when to see a doctor.</p>
+            <h4 className="font-bold mb-2">AI Symptom Chatbot</h4>
+            <p className="text-sm mb-4">The chatbot gives instant advice for minor issues (like cough or fatigue), including home remedies.</p>
             <button className="bg-[#3f3a1e] text-white text-xs px-4 py-2 rounded-full">EXPLORE THIS FEATURE</button>
           </div>
           <div className="bg-[#a3b38c] rounded-lg p-6 shadow-lg">
-            <h4 className="font-bold mb-2">Intelligent Reminders & Alerts</h4>
-            <p className="text-sm mb-4">Never miss a follow-up, checkup, or medication with personalized health reminders and alerts.</p>
+            <h4 className="font-bold mb-2">Smart Reminders</h4>
+            <p className="text-sm mb-4">Automatic alerts for appointments, vaccinations, or missed checkups via email or mobile.</p>
             <button className="bg-[#3f3a1e] text-white text-xs px-4 py-2 rounded-full">EXPLORE THIS FEATURE</button>
           </div>
         </div>
@@ -88,7 +88,7 @@ export default function App() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <div>
             <h3 className="font-bold mb-2">Healthease</h3>
-            <p className="mb-2 text-xs">Lorem ipsum dolor sit amet consectetur adipiscing elit aliquam.</p>
+            <p className="mb-2 text-xs">More than records. It’s your healthstory</p>
           </div>
           <div>
             <h4 className="font-semibold mb-2">Product</h4>
@@ -120,9 +120,9 @@ export default function App() {
               <li>Chat support</li>
             </ul>
             <h4 className="font-semibold mt-4 mb-2">Contact us</h4>
-            <p>contact@company.com</p>
-            <p>(414) 687 - 5892</p>
-            <p>794 McAllister St, San Francisco, 94102</p>
+            <p>contact@healthease.com</p>
+            <p>(+91) 48392-93013</p>
+            <p>New Delhi, India</p>
           </div>
         </div>
       </footer>
