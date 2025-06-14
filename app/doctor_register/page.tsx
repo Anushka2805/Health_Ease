@@ -163,15 +163,31 @@ export default function DoctorRegistration() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleInputChange = (section, field, value) => {
+//   const handleInputChange = (section, field, value) => {
+//     setFormData(prev => ({
+//       ...prev,
+//       [section]: {
+//         ...prev[section],
+//         [field]: value
+//       }
+//     }));
+//   };
+
+    type FormSection = 'personalInfo' | 'professionalInfo' | 'verification';
+
+    const handleInputChange = (
+    section: FormSection,
+    field: string,
+    value: any
+    ) => {
     setFormData(prev => ({
-      ...prev,
-      [section]: {
+        ...prev,
+        [section]: {
         ...prev[section],
         [field]: value
-      }
+        }
     }));
-  };
+    };
 
   const nextStep = () => {
     if (currentStep < 3) setCurrentStep(currentStep + 1);
@@ -354,7 +370,7 @@ export default function DoctorRegistration() {
                           ? 'border-blue-500 bg-blue-50/50' 
                           : 'border-gray-200 hover:border-gray-300'
                       }`}
-                      rows="3"
+                      rows={3}
                       placeholder="Enter your complete address"
                       onFocus={() => setFocusedField('address')}
                       onBlur={() => setFocusedField('')}
@@ -450,7 +466,7 @@ export default function DoctorRegistration() {
                           ? 'border-blue-500 bg-blue-50/50' 
                           : 'border-gray-200 hover:border-gray-300'
                       }`}
-                      rows="4"
+                      rows={4}
                       placeholder="Tell us about your medical background and expertise..."
                       onFocus={() => setFocusedField('bio')}
                       onBlur={() => setFocusedField('')}
