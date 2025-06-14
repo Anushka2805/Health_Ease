@@ -52,7 +52,7 @@ export default function App() {
         </div>
         <div className="md:w-1/2">
           <img
-            src="https://www.google.com/imgres?imgurl=https://t3.ftcdn.net/jpg/06/44/85/72/360_F_644857286_zVtIH5KLEYR4mhDLcrbPl5ZYnuuUYurA.jpg&tbnid=LaCihinqxcBiDM&vet=1&imgrefurl=https://stock.adobe.com/search?k%3Ddoctor%2Bclipart&docid=2ykiH9qe9r7UFM&w=360&h=360&source=sh/x/im/m5/2&kgs=91762d8eed35ccd9"
+            src="https://t3.ftcdn.net/jpg/06/44/85/72/360_F_644857286_zVtIH5KLEYR4mhDLcrbPl5ZYnuuUYurA.jpg"
             alt="Doctor illustration"
             className="rounded-lg shadow-lg"
           />
