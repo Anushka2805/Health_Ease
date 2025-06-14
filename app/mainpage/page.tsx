@@ -120,9 +120,9 @@ export default function App() {
               <li>Chat support</li>
             </ul>
             <h4 className="font-semibold mt-4 mb-2">Contact us</h4>
-            <p>contact@healthease.com</p>
-            <p>(+91) 48392-93013</p>
-            <p>New Delhi, India</p>
+            <p>📧contact@healthease.com</p>
+            <p>📞 (+91) 48392-93013</p>
+            <p>📍 New Delhi, India</p>
           </div>
         </div>
       </footer>
