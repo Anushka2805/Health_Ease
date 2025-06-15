@@ -481,10 +481,8 @@
 //     </div>
 //   );
 // }
-
 "use client";
-import React, { useState } from "react";
-import Link from 'next/link';
+import React, { useState, useEffect } from "react";
 import { User, Calendar, Droplets, UtensilsCrossed, Activity, Cigarette, Heart, AlertTriangle, Shield, Lock, CheckCircle, Sparkles } from "lucide-react";
 
 export default function PatientRegistration() {
@@ -497,6 +495,25 @@ export default function PatientRegistration() {
   const [chronicConditions, setChronicConditions] = useState("");
   const [allergies, setAllergies] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [floatingIcons, setFloatingIcons] = useState<Array<{
+    id: number;
+    left: number;
+    top: number;
+    delay: number;
+    duration: number;
+  }>>([]);
+
+  // Generate floating icons positions only on client side
+  useEffect(() => {
+    const icons = Array.from({ length: 12 }, (_, i) => ({
+      id: i,
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      delay: Math.random() * 3,
+      duration: 2 + Math.random() * 2
+    }));
+    setFloatingIcons(icons);
+  }, []);
 
   const handleSubmit = () => {
     setIsSubmitting(true);
@@ -521,26 +538,26 @@ export default function PatientRegistration() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-cyan-50 to-blue-50 relative overflow-hidden">
+    <div className="min-h-screen relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #E7EFC7 0%, #AEC8A4 50%, #E7EFC7 100%)' }}>
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 w-32 h-32 bg-emerald-200/30 rounded-full blur-xl animate-pulse"></div>
-        <div className="absolute top-40 right-20 w-48 h-48 bg-cyan-200/20 rounded-full blur-2xl animate-pulse"></div>
-        <div className="absolute bottom-20 left-1/3 w-40 h-40 bg-blue-200/25 rounded-full blur-xl animate-pulse"></div>
+        <div className="absolute top-20 left-10 w-32 h-32 rounded-full blur-xl animate-pulse" style={{ backgroundColor: '#AEC8A4', opacity: 0.3 }}></div>
+        <div className="absolute top-40 right-20 w-48 h-48 rounded-full blur-2xl animate-pulse" style={{ backgroundColor: '#8A784E', opacity: 0.2 }}></div>
+        <div className="absolute bottom-20 left-1/3 w-40 h-40 rounded-full blur-xl animate-pulse" style={{ backgroundColor: '#AEC8A4', opacity: 0.25 }}></div>
         
-        {/* Floating icons */}
-        {[...Array(12)].map((_, i) => (
+        {/* Floating icons - only render after client hydration */}
+        {floatingIcons.map((icon) => (
           <div
-            key={i}
+            key={icon.id}
             className="absolute opacity-10 animate-bounce"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${2 + Math.random() * 2}s`
+              left: `${icon.left}%`,
+              top: `${icon.top}%`,
+              animationDelay: `${icon.delay}s`,
+              animationDuration: `${icon.duration}s`
             }}
           >
-            <Heart className="w-4 h-4 text-emerald-500" />
+            <Heart className="w-4 h-4" style={{ color: '#8A784E' }} />
           </div>
         ))}
       </div>
@@ -551,25 +568,28 @@ export default function PatientRegistration() {
           <div className="max-w-2xl mx-auto w-full">
             {/* Header */}
             <div className="text-center mb-8">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-2xl mb-4 transform hover:scale-110 transition-transform duration-300">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4 transform hover:scale-110 transition-transform duration-300" style={{ background: 'linear-gradient(135deg, #8A784E, #AEC8A4)' }}>
                 <Sparkles className="w-8 h-8 text-white" />
               </div>
-              <h1 className="text-4xl font-bold bg-gradient-to-r from-emerald-600 to-cyan-600 bg-clip-text text-transparent mb-2">
+              <h1 className="text-4xl font-bold mb-2" style={{ color: '#3B3B1A' }}>
                 Welcome Shaivi
               </h1>
-              <p className="text-gray-600 text-lg">Complete your health profile to get started</p>
+              <p className="text-lg" style={{ color: '#8A784E' }}>Complete your health profile to get started</p>
             </div>
 
             {/* Progress Bar */}
             <div className="mb-8">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium text-gray-700">Profile Completion</span>
-                <span className="text-sm font-semibold text-emerald-600">{Math.round(getFieldProgress())}%</span>
+                <span className="text-sm font-medium" style={{ color: '#3B3B1A' }}>Profile Completion</span>
+                <span className="text-sm font-semibold" style={{ color: '#8A784E' }}>{Math.round(getFieldProgress())}%</span>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+              <div className="w-full rounded-full h-3 overflow-hidden" style={{ backgroundColor: '#E7EFC7' }}>
                 <div 
-                  className="h-full bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-full transition-all duration-500 ease-out relative overflow-hidden"
-                  style={{ width: `${getFieldProgress()}%` }}
+                  className="h-full rounded-full transition-all duration-500 ease-out relative overflow-hidden"
+                  style={{ 
+                    width: `${getFieldProgress()}%`,
+                    background: 'linear-gradient(90deg, #8A784E, #AEC8A4)'
+                  }}
                 >
                   <div className="absolute inset-0 bg-white/20 animate-pulse"></div>
                 </div>
@@ -577,43 +597,58 @@ export default function PatientRegistration() {
             </div>
 
             {/* Form */}
-            <div className="backdrop-blur-sm bg-white/60 rounded-3xl p-8 border border-white/50 shadow-xl">
+            <div className="backdrop-blur-sm rounded-3xl p-8 border shadow-xl" style={{ backgroundColor: 'rgba(231, 239, 199, 0.6)', borderColor: 'rgba(174, 200, 164, 0.5)' }}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 {/* Gender */}
                 <div className="relative group">
-                  <User className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-emerald-500 transition-colors duration-300" />
+                  <User className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 transition-colors duration-300" style={{ color: '#8A784E' }} />
                   <select
                     value={gender}
                     onChange={(e) => setGender(e.target.value)}
-                    className="w-full pl-12 pr-4 py-4 bg-white/80 border border-gray-200 rounded-2xl text-gray-700 appearance-none focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all duration-300 hover:bg-white/90"
+                    className="w-full pl-12 pr-4 py-4 border rounded-2xl appearance-none focus:outline-none focus:ring-2 transition-all duration-300 hover:bg-white/90"
+                    style={{ 
+                      backgroundColor: 'rgba(255, 255, 255, 0.8)', 
+                      borderColor: '#AEC8A4',
+                      color: '#3B3B1A'
+                    }}
                   >
                     <option value="">Select Gender</option>
                     <option value="Female">Female</option>
                     <option value="Male">Male</option>
                     <option value="Other">Other</option>
                   </select>
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-emerald-500/0 to-cyan-500/0 group-focus-within:from-emerald-500/10 group-focus-within:to-cyan-500/10 transition-all duration-300 pointer-events-none"></div>
+                  <div className="absolute inset-0 rounded-2xl transition-all duration-300 pointer-events-none group-focus-within:bg-gradient-to-r group-focus-within:from-transparent group-focus-within:to-transparent" style={{ boxShadow: 'inset 0 0 0 2px transparent' }}></div>
                 </div>
 
                 {/* Date of Birth */}
                 <div className="relative group">
-                  <Calendar className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-emerald-500 transition-colors duration-300" />
+                  <Calendar className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 transition-colors duration-300" style={{ color: '#8A784E' }} />
                   <input
                     type="date"
                     value={dob}
                     onChange={(e) => setDob(e.target.value)}
-                    className="w-full pl-12 pr-4 py-4 bg-white/80 border border-gray-200 rounded-2xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all duration-300 hover:bg-white/90"
+                    className="w-full pl-12 pr-4 py-4 border rounded-2xl focus:outline-none focus:ring-2 transition-all duration-300 hover:bg-white/90"
+                    style={{ 
+                      backgroundColor: 'rgba(255, 255, 255, 0.8)', 
+                      borderColor: '#AEC8A4',
+                      color: '#3B3B1A'
+                    }}
                   />
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-emerald-500/0 to-cyan-500/0 group-focus-within:from-emerald-500/10 group-focus-within:to-cyan-500/10 transition-all duration-300 pointer-events-none"></div>
+                  <div className="absolute inset-0 rounded-2xl transition-all duration-300 pointer-events-none"></div>
                 </div>
 
                 {/* Blood Group */}
                 <div className="relative group">
-                  <Droplets className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-emerald-500 transition-colors duration-300" />
+                  <Droplets className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 transition-colors duration-300" style={{ color: '#8A784E' }} />
                   <select
                     value={bloodGroup}
                     onChange={(e) => setBloodGroup(e.target.value)}
-                    className="w-full pl-12 pr-4 py-4 bg-white/80 border border-gray-200 rounded-2xl text-gray-700 appearance-none focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all duration-300 hover:bg-white/90"
+                    className="w-full pl-12 pr-4 py-4 border rounded-2xl appearance-none focus:outline-none focus:ring-2 transition-all duration-300 hover:bg-white/90"
+                    style={{ 
+                      backgroundColor: 'rgba(255, 255, 255, 0.8)', 
+                      borderColor: '#AEC8A4',
+                      color: '#3B3B1A'
+                    }}
                   >
                     <option value="">Select Blood Group</option>
                     <option value="A+">A+</option>
@@ -625,89 +660,118 @@ export default function PatientRegistration() {
                     <option value="O+">O+</option>
                     <option value="O-">O-</option>
                   </select>
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-emerald-500/0 to-cyan-500/0 group-focus-within:from-emerald-500/10 group-focus-within:to-cyan-500/10 transition-all duration-300 pointer-events-none"></div>
+                  <div className="absolute inset-0 rounded-2xl transition-all duration-300 pointer-events-none"></div>
                 </div>
 
                 {/* Diet Type */}
                 <div className="relative group">
-                  <UtensilsCrossed className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-emerald-500 transition-colors duration-300" />
+                  <UtensilsCrossed className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 transition-colors duration-300" style={{ color: '#8A784E' }} />
                   <select
                     value={dietType}
                     onChange={(e) => setDietType(e.target.value)}
-                    className="w-full pl-12 pr-4 py-4 bg-white/80 border border-gray-200 rounded-2xl text-gray-700 appearance-none focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all duration-300 hover:bg-white/90"
+                    className="w-full pl-12 pr-4 py-4 border rounded-2xl appearance-none focus:outline-none focus:ring-2 transition-all duration-300 hover:bg-white/90"
+                    style={{ 
+                      backgroundColor: 'rgba(255, 255, 255, 0.8)', 
+                      borderColor: '#AEC8A4',
+                      color: '#3B3B1A'
+                    }}
                   >
                     <option value="">Select Diet Type</option>
                     <option value="Vegetarian">Vegetarian</option>
                     <option value="Non-Vegetarian">Non-Vegetarian</option>
                     <option value="Vegan">Vegan</option>
                   </select>
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-emerald-500/0 to-cyan-500/0 group-focus-within:from-emerald-500/10 group-focus-within:to-cyan-500/10 transition-all duration-300 pointer-events-none"></div>
+                  <div className="absolute inset-0 rounded-2xl transition-all duration-300 pointer-events-none"></div>
                 </div>
 
                 {/* Activity Level */}
                 <div className="relative group">
-                  <Activity className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-emerald-500 transition-colors duration-300" />
+                  <Activity className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 transition-colors duration-300" style={{ color: '#8A784E' }} />
                   <select
                     value={activityLevel}
                     onChange={(e) => setActivityLevel(e.target.value)}
-                    className="w-full pl-12 pr-4 py-4 bg-white/80 border border-gray-200 rounded-2xl text-gray-700 appearance-none focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all duration-300 hover:bg-white/90"
+                    className="w-full pl-12 pr-4 py-4 border rounded-2xl appearance-none focus:outline-none focus:ring-2 transition-all duration-300 hover:bg-white/90"
+                    style={{ 
+                      backgroundColor: 'rgba(255, 255, 255, 0.8)', 
+                      borderColor: '#AEC8A4',
+                      color: '#3B3B1A'
+                    }}
                   >
                     <option value="">Physical Activity Level</option>
                     <option value="Sedentary">Sedentary</option>
                     <option value="Moderate">Moderate</option>
                     <option value="Active">Active</option>
                   </select>
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-emerald-500/0 to-cyan-500/0 group-focus-within:from-emerald-500/10 group-focus-within:to-cyan-500/10 transition-all duration-300 pointer-events-none"></div>
+                  <div className="absolute inset-0 rounded-2xl transition-all duration-300 pointer-events-none"></div>
                 </div>
 
                 {/* Smoking/Alcohol */}
                 <div className="relative group">
-                  <Cigarette className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-emerald-500 transition-colors duration-300" />
+                  <Cigarette className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 transition-colors duration-300" style={{ color: '#8A784E' }} />
                   <select
                     value={smokingAlcohol}
                     onChange={(e) => setSmokingAlcohol(e.target.value)}
-                    className="w-full pl-12 pr-4 py-4 bg-white/80 border border-gray-200 rounded-2xl text-gray-700 appearance-none focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all duration-300 hover:bg-white/90"
+                    className="w-full pl-12 pr-4 py-4 border rounded-2xl appearance-none focus:outline-none focus:ring-2 transition-all duration-300 hover:bg-white/90"
+                    style={{ 
+                      backgroundColor: 'rgba(255, 255, 255, 0.8)', 
+                      borderColor: '#AEC8A4',
+                      color: '#3B3B1A'
+                    }}
                   >
                     <option value="">Smoking / Alcohol</option>
                     <option value="No">No</option>
                     <option value="Yes - Occasionally">Yes - Occasionally</option>
                     <option value="Yes - Regularly">Yes - Regularly</option>
                   </select>
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-emerald-500/0 to-cyan-500/0 group-focus-within:from-emerald-500/10 group-focus-within:to-cyan-500/10 transition-all duration-300 pointer-events-none"></div>
+                  <div className="absolute inset-0 rounded-2xl transition-all duration-300 pointer-events-none"></div>
                 </div>
               </div>
 
               {/* Text Inputs */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                 <div className="relative group">
-                  <Heart className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-emerald-500 transition-colors duration-300" />
+                  <Heart className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 transition-colors duration-300" style={{ color: '#8A784E' }} />
                   <input
                     type="text"
                     value={chronicConditions}
                     onChange={(e) => setChronicConditions(e.target.value)}
                     placeholder="Chronic Conditions (Optional)"
-                    className="w-full pl-12 pr-4 py-4 bg-white/80 border border-gray-200 rounded-2xl text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all duration-300 hover:bg-white/90"
+                    className="w-full pl-12 pr-4 py-4 border rounded-2xl focus:outline-none focus:ring-2 transition-all duration-300 hover:bg-white/90"
+                    style={{ 
+                      backgroundColor: 'rgba(255, 255, 255, 0.8)', 
+                      borderColor: '#AEC8A4',
+                      color: '#3B3B1A'
+                    }}
                   />
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-emerald-500/0 to-cyan-500/0 group-focus-within:from-emerald-500/10 group-focus-within:to-cyan-500/10 transition-all duration-300 pointer-events-none"></div>
+                  <div className="absolute inset-0 rounded-2xl transition-all duration-300 pointer-events-none"></div>
                 </div>
 
                 <div className="relative group">
-                  <AlertTriangle className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-emerald-500 transition-colors duration-300" />
+                  <AlertTriangle className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 transition-colors duration-300" style={{ color: '#8A784E' }} />
                   <input
                     type="text"
                     value={allergies}
                     onChange={(e) => setAllergies(e.target.value)}
                     placeholder="Allergies (Optional)"
-                    className="w-full pl-12 pr-4 py-4 bg-white/80 border border-gray-200 rounded-2xl text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all duration-300 hover:bg-white/90"
+                    className="w-full pl-12 pr-4 py-4 border rounded-2xl focus:outline-none focus:ring-2 transition-all duration-300 hover:bg-white/90"
+                    style={{ 
+                      backgroundColor: 'rgba(255, 255, 255, 0.8)', 
+                      borderColor: '#AEC8A4',
+                      color: '#3B3B1A'
+                    }}
                   />
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-emerald-500/0 to-cyan-500/0 group-focus-within:from-emerald-500/10 group-focus-within:to-cyan-500/10 transition-all duration-300 pointer-events-none"></div>
+                  <div className="absolute inset-0 rounded-2xl transition-all duration-300 pointer-events-none"></div>
                 </div>
               </div>
 
               {/* Submit Button */}
               <div
                 onClick={handleSubmit}
-                className="w-full py-4 px-6 bg-gradient-to-r from-emerald-600 to-cyan-600 text-white font-bold rounded-2xl shadow-lg hover:shadow-emerald-500/25 transition-all duration-300 transform hover:scale-[1.02] cursor-pointer relative overflow-hidden group"
+                className="w-full py-4 px-6 text-white font-bold rounded-2xl shadow-lg transition-all duration-300 transform hover:scale-[1.02] cursor-pointer relative overflow-hidden group"
+                style={{ 
+                  background: 'linear-gradient(135deg, #8A784E, #AEC8A4)',
+                  boxShadow: '0 10px 25px rgba(138, 120, 78, 0.25)'
+                }}
               >
                 <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12"></div>
                 <span className="relative z-10 flex items-center justify-center space-x-2">
@@ -729,7 +793,7 @@ export default function PatientRegistration() {
         </div>
 
         {/* Right section - Privacy Info */}
-        <div className="flex-1 bg-gradient-to-br from-emerald-600 via-cyan-600 to-blue-600 text-white p-8 lg:p-12 flex flex-col justify-center relative overflow-hidden">
+        <div className="flex-1 text-white p-8 lg:p-12 flex flex-col justify-center relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #3B3B1A, #8A784E)' }}>
           {/* Background decorations */}
           <div className="absolute inset-0 opacity-10">
             <div className="absolute top-10 right-10 w-32 h-32 border border-white/20 rounded-full"></div>
@@ -783,7 +847,7 @@ export default function PatientRegistration() {
               </div>
             </div>
 
-            <div className="mt-8 p-4 bg-white/10 rounded-2xl border border-white/20">
+            <div className="mt-8 p-4 rounded-2xl border border-white/20" style={{ backgroundColor: 'rgba(174, 200, 164, 0.1)' }}>
               <p className="text-sm text-white/90 italic">
                 "Your health records are available anytime, anywhere — completely under your control."
               </p>
