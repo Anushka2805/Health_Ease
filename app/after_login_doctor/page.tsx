@@ -7,8 +7,14 @@ interface Doctor {
   specialty?: string;
 }
 
-const DoctorDashboard = ({ pro_doc }: { pro_doc: Doctor }) => {
+const DoctorDashboard = () => {
   const [searchQuery, setSearchQuery] = useState('');
+  
+  // Mock doctor data - in a real app, this would come from authentication/session
+  const pro_doc: Doctor = {
+    name: 'Sarah Anderson',
+    specialty: 'Cardiologist'
+  };
 
   const recentPatients = [
     { name: 'Sarah Johnson', condition: 'Hypertension', lastVisit: '2 hours ago', priority: 'high' },
@@ -61,10 +67,12 @@ const DoctorDashboard = ({ pro_doc }: { pro_doc: Doctor }) => {
             <div className="flex items-center space-x-3">
               <div className="text-right hidden sm:block">
                 <p className="text-sm font-medium text-[#3B3B1A]">Dr. {pro_doc?.name || 'Unknown'}</p>
-                <p className="text-xs text-[#8A784E]">Cardiologist</p>
+                <p className="text-xs text-[#8A784E]">{pro_doc?.specialty || 'General Practitioner'}</p>
               </div>
               <div className="w-10 h-10 bg-[#8A784E] rounded-full flex items-center justify-center">
-                <span className="text-[#E7EFC7] font-semibold">A</span>
+                <span className="text-[#E7EFC7] font-semibold">
+                  {pro_doc?.name?.charAt(0) || 'D'}
+                </span>
               </div>
             </div>
           </div>
