@@ -1,7 +1,7 @@
 "use client"
 import React, { useState, useEffect } from "react";
 import Link from 'next/link';
-import { Heart, Search, Upload, Menu, X, Shield, Clock, Users, ChevronRight, Star, Play } from "lucide-react";
+import { Heart, Search, Upload, Menu, X, Shield, Clock, Users, ChevronRight, Play } from "lucide-react";
 
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

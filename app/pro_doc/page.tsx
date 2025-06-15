@@ -1,6 +1,6 @@
 "use client";
 import React from 'react';
-import { User, Calendar, Clock, Globe, MessageCircle, Users, FileText, Pill, Bell, Search, TrendingUp, Settings, LogOut, Activity } from 'lucide-react';
+import { User, Calendar, Clock, Globe, MessageCircle, Users, FileText, Pill, Bell, Search, Settings, LogOut, Activity } from 'lucide-react';
 
 const DoctorDashboard: React.FC = () => {
   return (

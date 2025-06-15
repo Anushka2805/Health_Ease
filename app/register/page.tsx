@@ -1,7 +1,6 @@
 //app/register/page.tsx
 "use client";
 import React, { useState } from "react";
-import Link from "next/link";
 
 import { User, UserCheck, Shield, Eye, EyeOff, CreditCard, Lock, CheckCircle } from "lucide-react";
 

@@ -2,7 +2,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";          
-import { User, Calendar, Droplets, UtensilsCrossed, Activity, Cigarette, Heart, AlertTriangle, Edit, RefreshCw, LogOut, Shield, Phone, Plus, Download, MessageCircle, FileText, Edit3, Pill } from "lucide-react";
+import { User, Calendar, UtensilsCrossed, Activity, Cigarette, Heart, AlertTriangle, Edit, RefreshCw, LogOut, Shield, Phone, Plus, Download, MessageCircle, FileText, Edit3, Pill } from "lucide-react";
 
 export default function PatientDashboard() {
   const [patientData, setPatientData] = useState<any>(null);
