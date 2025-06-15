@@ -43,19 +43,23 @@ export default function LoginPage() {
   };
 
   const handleLogin = () => {
-    if (aadhaar.length !== 12) {
-      setLoginError("Please enter full 12-digit Aadhaar number");
-      return;
-    }
-    setIsLoading(true);
-    setLoginError(""); // Clear previous error
-    console.log("Login data:", { aadhaar, otp, password, userRole });
-    // Simulate no user found
-    setTimeout(() => {
-      setIsLoading(false);
-      setLoginError("No user found");
-    }, 2000);
-  };
+  if (aadhaar.length !== 12) {
+    setLoginError("Please enter full 12-digit Aadhaar number");
+    return;
+  }
+
+  setIsLoading(true);
+  setLoginError(""); // Clear previous error
+
+  console.log("Login data:", { aadhaar, otp, password, userRole });
+
+  // Simulate no user found
+  setTimeout(() => {
+    setIsLoading(false);
+    setLoginError("No user found. Kindly register.");
+  }, 2000);
+};
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#3B3B1A] via-[#8A784E] to-[#3B3B1A] flex items-center justify-center p-4 relative overflow-hidden">
@@ -202,7 +206,7 @@ export default function LoginPage() {
                   <span>Signing In...</span>
                 </>
               ) : (
-                <span>LOGIN</span>
+                <span>VERIFY ADHAAR</span>
               )}
             </span>
           </button>

@@ -35,7 +35,7 @@ const DoctorDashboard: React.FC = () => {
               </div>
               <div>
                 <h1 className="text-2xl font-bold text-[#3B3B1A] tracking-tight">Healthease</h1>
-                <p className="text-sm text-[#8A784E]">Medical Dashboard</p>
+                <p className="text-sm text-[#8A784E]">Medical Profile</p>
               </div>
             </div>
             
@@ -60,8 +60,13 @@ const DoctorDashboard: React.FC = () => {
 
           <nav className="flex gap-2 mt-6">
             <button className="bg-gradient-to-r from-[#AEC8A4] to-[#8A784E] text-white px-6 py-3 rounded-xl hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 font-medium">
-              Dashboard
+              Profile
             </button>
+            <Link href="/after_login_doctor">
+              <button className="bg-white/60 backdrop-blur text-[#3B3B1A] px-6 py-3 rounded-xl hover:bg-white hover:shadow-md transition-all duration-200 font-medium border border-[#AEC8A4]/20">
+                Dashboard
+              </button>
+            </Link>
             <button className="bg-white/60 backdrop-blur text-[#3B3B1A] px-6 py-3 rounded-xl hover:bg-white hover:shadow-md transition-all duration-200 font-medium border border-[#AEC8A4]/20">
               Patients
             </button>

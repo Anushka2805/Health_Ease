@@ -2,7 +2,12 @@
 import React, { useState } from 'react';
 import { Search, Mic, Camera, Calendar, Users, FileText, Brain, Bell, Settings, ChevronRight, Activity, Clock, Star, TrendingUp } from 'lucide-react';
 
-const DoctorDashboard = () => {
+interface Doctor {
+  name: string;
+  specialty?: string;
+}
+
+const DoctorDashboard = ({ pro_doc }: { pro_doc: Doctor }) => {
   const [searchQuery, setSearchQuery] = useState('');
 
   const recentPatients = [
@@ -55,7 +60,7 @@ const DoctorDashboard = () => {
 
             <div className="flex items-center space-x-3">
               <div className="text-right hidden sm:block">
-                <p className="text-sm font-medium text-[#3B3B1A]">Dr. Alia Rahman</p>
+                <p className="text-sm font-medium text-[#3B3B1A]">Dr. {pro_doc?.name || 'Unknown'}</p>
                 <p className="text-xs text-[#8A784E]">Cardiologist</p>
               </div>
               <div className="w-10 h-10 bg-[#8A784E] rounded-full flex items-center justify-center">
@@ -77,7 +82,7 @@ const DoctorDashboard = () => {
             
             <h2 className="text-4xl font-bold text-[#3B3B1A] mb-3">
               Good Morning, <br />
-              <span className="text-[#8A784E]">Dr. Alia</span>
+              <span className="text-[#8A784E]">Dr. {pro_doc?.name?.split(' ')[0] || 'Doctor'}</span>
             </h2>
             
             <p className="text-lg text-[#8A784E] mb-6 leading-relaxed">
