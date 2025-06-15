@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Upload, FileText, Calendar, User, Stethoscope, Plus, Eye, X } from "lucide-react";
 
 const HealthRecordOrganizer = () => {
-  const [records, setRecords] = useState([]);
+  const [records, setRecords] = useState<any[]>([]);
   const [form, setForm] = useState({
     title: "",
     doctor: "",
@@ -17,13 +17,13 @@ const HealthRecordOrganizer = () => {
   const [error, setError] = useState("");
   const [isFormVisible, setIsFormVisible] = useState(false);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
     if (file) {
       const previewURL = URL.createObjectURL(file);
       setForm((prev) => ({
@@ -56,7 +56,7 @@ const HealthRecordOrganizer = () => {
     setIsFormVisible(false);
   };
 
-  const getTypeIcon = (type) => {
+  const getTypeIcon = (type: string) => {
     switch (type.toLowerCase()) {
       case 'lab report':
         return <FileText className="w-5 h-5" style={{ color: '#3B3B1A' }} />;
@@ -67,7 +67,7 @@ const HealthRecordOrganizer = () => {
     }
   };
 
-  const getSystemBadgeColor = (system) => {
+  const getSystemBadgeColor = (system: string) => {
     const colors = {
       'neuro': 'bg-[#8A784E] text-[#E7EFC7]',
       'cardio': 'bg-[#AEC8A4] text-[#3B3B1A]',
