@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useRef } from "react";
-import { FileText, User, Send, Stethoscope, Bold, Italic, List, AlignLeft } from "lucide-react";
+import { FileText, User, Send, Stethoscope, Bold, Italic, List } from "lucide-react";
 
 export default function ReportsPage() {
   const [aadhaarId, setAadhaarId] = useState("");

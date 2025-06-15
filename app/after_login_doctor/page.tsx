@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from 'react';
-import { Search, Mic, Camera, Calendar, Users, FileText, Brain, Bell, Settings, ChevronRight, Activity, Clock, Star, TrendingUp, Heart } from 'lucide-react';
+import { Search, Mic, Camera, Calendar, Users, FileText, Brain, Bell, Settings, ChevronRight, Activity, Clock, Heart } from 'lucide-react';
 
 interface Doctor {
   name: string;
