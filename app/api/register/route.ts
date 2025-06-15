@@ -1,4 +1,3 @@
-//app/api/register/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 
@@ -76,8 +75,8 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if Aadhaar was verified (in real app, you'd check against your verification system)
-    // For demo, we'll accept any number starting with 1234 as verified
-    const isVerified = cleanAadhaar.startsWith('1234') || verifiedAadhaarNumbers.has(cleanAadhaar);
+    const isVerified =
+      cleanAadhaar.startsWith('1234') || verifiedAadhaarNumbers.has(cleanAadhaar);
     if (!isVerified) {
       return NextResponse.json(
         { error: 'Please verify your Aadhaar number first' },
@@ -103,14 +102,15 @@ export async function POST(request: NextRequest) {
       fullName: fullName.trim(),
       password: hashedPassword,
       userType,
-      registeredAt: new Date()
+      registeredAt: new Date(),
     };
 
     // Store user
     users.push(user);
     registeredAadhaarNumbers.add(cleanAadhaar);
 
-    // Return success response (don't include password)
+    // Exclude password from response
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password: _, ...userResponse } = user;
 
     console.log('User registered successfully:', userResponse);
@@ -118,9 +118,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       message: 'Registration successful',
-      user: userResponse
+      user: userResponse,
     });
-
   } catch (error) {
     console.error('Registration error:', error);
     return NextResponse.json(
@@ -133,7 +132,8 @@ export async function POST(request: NextRequest) {
 // GET endpoint to retrieve users (for debugging purposes)
 export async function GET() {
   return NextResponse.json({
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     users: users.map(({ password, ...user }) => user),
-    totalUsers: users.length
+    totalUsers: users.length,
   });
 }

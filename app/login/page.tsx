@@ -3,6 +3,15 @@ import React, { useState, useEffect } from "react";
 import { Eye, EyeOff, Shield, Fingerprint, Lock, Leaf } from "lucide-react";
 import Link from "next/link";
 
+interface FloatingElement {
+  id: number;
+  left: number;
+  top: number;
+  delay: number;
+  duration: number;
+  rotation: number;
+}
+
 export default function LoginPage() {
   const [aadhaar, setAadhaar] = useState<string>("");
   const [otp, setOtp] = useState<string>("");
@@ -11,7 +20,7 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [userRole, setUserRole] = useState<string>("patient");
   const [loginError, setLoginError] = useState<string>("");
-  const [floatingElements, setFloatingElements] = useState<any[]>([]);
+  const [floatingElements, setFloatingElements] = useState<FloatingElement[]>([]);
 
   // Generate floating elements only on client side to avoid hydration mismatch
   useEffect(() => {
@@ -209,7 +218,7 @@ export default function LoginPage() {
           {/* Register link */}
           <div className="text-center mt-8 relative z-10">
             <p className="text-[#AEC8A4] text-sm">
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E7EFC7] to-[#AEC8A4] hover:from-[#E7EFC7] hover:to-[#8A784E] font-semibold transition-all duration-300 hover:underline cursor-pointer">
                 <Link href="/register">
                 Register</Link>

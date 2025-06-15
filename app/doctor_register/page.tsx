@@ -1,5 +1,4 @@
 "use client";
-"use client";
 import React, { useState, useEffect } from "react";
 import { User, Building2, FileCheck, ArrowLeft, ArrowRight, CheckCircle, Shield, Clock, Award } from "lucide-react";
 
@@ -64,6 +63,12 @@ export default function DoctorRegistration() {
 
   const prevStep = () => {
     if (currentStep > 1) setCurrentStep(currentStep - 1);
+  };
+
+  const handleSubmit = () => {
+    // This is where you'd actually use the formData
+    console.log('Form submitted:', formData);
+    // Add your submission logic here
   };
 
   return (
@@ -411,7 +416,7 @@ export default function DoctorRegistration() {
                         <h4 className="font-bold text-lg mb-2" style={{ color: '#3B3B1A' }}>Verification Timeline</h4>
                         <p className="leading-relaxed" style={{ color: '#8A784E' }}>
                           Our medical verification team will review your credentials within 24-48 hours. 
-                          You'll receive email updates throughout the process and full approval notification once complete.
+                          You&apos;ll receive email updates throughout the process and full approval notification once complete.
                         </p>
                       </div>
                     </div>
@@ -459,7 +464,11 @@ export default function DoctorRegistration() {
                       <ArrowRight className="w-5 h-5" />
                     </button>
                   ) : (
-                    <button className="flex items-center space-x-3 px-10 py-4 rounded-2xl font-bold text-white shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300" style={{ background: 'linear-gradient(135deg, #AEC8A4, #8A784E)' }}>
+                    <button 
+                      onClick={handleSubmit}
+                      className="flex items-center space-x-3 px-10 py-4 rounded-2xl font-bold text-white shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300" 
+                      style={{ background: 'linear-gradient(135deg, #AEC8A4, #8A784E)' }}
+                    >
                       <span>Complete Registration</span>
                       <CheckCircle className="w-5 h-5" />
                     </button>

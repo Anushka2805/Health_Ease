@@ -154,7 +154,7 @@ const HealthRecordOrganizer = () => {
                 </div>
 
                 <div className="relative">
-                  <label className="block font-semibold mb-2" style={{ color: '#3B3B1A' }}>Doctor's Name</label>
+                  <label className="block font-semibold mb-2" style={{ color: '#3B3B1A' }}>Doctor&apos;s Name</label>
                   <div className="relative">
                     <User className="absolute left-3 top-3.5 w-5 h-5" style={{ color: '#8A784E' }} />
                     <input
@@ -304,10 +304,10 @@ const HealthRecordOrganizer = () => {
             <div className="col-span-full text-center py-12">
               <FileText className="w-16 h-16 mx-auto mb-4" style={{ color: '#AEC8A4' }} />
               <p className="text-xl font-semibold" style={{ color: '#8A784E' }}>No records uploaded yet</p>
-              <p className="mt-2" style={{ color: '#8A784E' }}>Click "Add New Record" to get started</p>
+              <p className="mt-2" style={{ color: '#8A784E' }}>Click &ldquo;Add New Record&rdquo; to get started</p>
             </div>
           ) : (
-            records.map((record, index) => (
+            records.map((record) => (
               <div
                 key={record.id}
                 className="group rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
@@ -315,7 +315,7 @@ const HealthRecordOrganizer = () => {
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="p-3 rounded-xl" style={{ backgroundColor: '#E7EFC7' }}>
-                    <FileText className="w-5 h-5" style={{ color: '#3B3B1A' }} />
+                    {getTypeIcon(record.type)}
                   </div>
                   <span className={`px-3 py-1 rounded-full text-xs font-semibold ${getSystemBadgeColor(record.bodySystem)}`}>
                     {record.bodySystem || 'General'}

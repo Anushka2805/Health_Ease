@@ -1,6 +1,7 @@
 "use client"
 import React, { useState, useEffect } from "react";
 import Link from 'next/link';
+
 import { Heart, Search, Upload, Menu, X, Shield, Clock, Users, ChevronRight, Play } from "lucide-react";
 
 export default function App() {
@@ -91,7 +92,7 @@ export default function App() {
                 </h2>
                 <h2 className="text-5xl lg:text-6xl font-bold leading-tight">
                   <span className="bg-gradient-to-r from-[#7f6b39] to-[#a3b38c] bg-clip-text text-transparent">
-                    It's Your Health Story
+                    It&apos;s Your Health Story
                   </span>
                 </h2>
               </div>
@@ -143,9 +144,12 @@ export default function App() {
             <div className="lg:w-1/2 relative">
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-[#7f6b39]/20 to-[#a3b38c]/20 rounded-3xl blur-2xl"></div>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="https://t3.ftcdn.net/jpg/06/44/85/72/360_F_644857286_zVtIH5KLEYR4mhDLcrbPl5ZYnuuUYurA.jpg"
                   alt="Doctor illustration"
+                  width={600}
+                  height={400}
                   className="relative rounded-3xl shadow-2xl hover:shadow-3xl transition-shadow duration-300 border-4 border-white"
                 />
                 
@@ -281,7 +285,7 @@ export default function App() {
                 </h3>
               </div>
               <p className="text-gray-600 text-sm leading-relaxed">
-                More than records. It's your health story. Experience the future of healthcare management.
+                More than records. It&apos;s your health story. Experience the future of healthcare management.
               </p>
               <div className="flex space-x-4">
                 <div className="w-10 h-10 bg-gray-200 rounded-full hover:bg-gray-300 transition-colors cursor-pointer"></div>

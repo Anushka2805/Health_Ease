@@ -87,7 +87,7 @@ export default function App() {
                 </h2>
                 
                 <p className="text-xl text-[#3B3B1A]/80 mb-8 leading-relaxed max-w-lg">
-                  It's Your Complete Health Story - Intelligently organized, beautifully presented, and always accessible.
+                  It&#39;s Your Complete Health Story - Intelligently organized, beautifully presented, and always accessible.
                 </p>
               </div>
 

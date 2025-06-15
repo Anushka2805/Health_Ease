@@ -487,7 +487,7 @@ if (storedName) setFirstName(storedName.split(" ")[0]);
 
             <div className="mt-8 p-4 rounded-2xl border border-white/20" style={{ backgroundColor: 'rgba(174, 200, 164, 0.1)' }}>
               <p className="text-sm text-white/90 italic">
-                "Your health records are available anytime, anywhere — completely under your control."
+                Your health records are available anytime, anywhere — completely under your control.
               </p>
             </div>
           </div>

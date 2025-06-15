@@ -2,25 +2,47 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";          
-import { User, Calendar, UtensilsCrossed, Activity, Cigarette, Heart, AlertTriangle, Edit, RefreshCw, LogOut, Shield, Phone, Plus, Download, MessageCircle, FileText, Edit3, Pill } from "lucide-react";
+import { User, Calendar, UtensilsCrossed, Activity, Cigarette, Heart, AlertTriangle, RefreshCw, LogOut, Shield, Phone, Plus, Download, MessageCircle, FileText, Edit3, Pill } from "lucide-react";
+
+// Type definitions
+interface PatientData {
+  aadhaar: string;
+  fullName: string;
+  dob: string;
+  gender: string;
+  bloodGroup: string;
+  emergencyContactName: string;
+  emergencyContactPhone: string;
+  emergencyContactRelation: string;
+  allergies: string;
+  chronicConditions: string;
+  dietType: string;
+  activityLevel: string;
+  smokingAlcohol: string;
+  updatedAt: string;
+}
+
+interface Report {
+  name: string;
+  date: string;
+  type: string;
+}
 
 export default function PatientDashboard() {
-  const [patientData, setPatientData] = useState<any>(null);
+  const [patientData, setPatientData] = useState<PatientData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [aadhaar, setAadhaar] = useState("");
   const [activeTab, setActiveTab] = useState("profile");
   const [firstName, setFirstName] = useState("");
 
-
   useEffect(() => {
     // Get Aadhaar from URL params or localStorage
     const urlParams = new URLSearchParams(window.location.search);
     const aadhaarFromUrl = urlParams.get('aadhaar');
     const storedName = localStorage.getItem("userFullName");
-if (storedName) setFirstName(storedName.split(" ")[0]);
+    if (storedName) setFirstName(storedName.split(" ")[0]);
 
-    
     if (aadhaarFromUrl) {
       setAadhaar(aadhaarFromUrl);
       fetchPatientData(aadhaarFromUrl);
@@ -39,7 +61,7 @@ if (storedName) setFirstName(storedName.split(" ")[0]);
   const fetchPatientData = async (aadhaarNumber: string) => {
     try {
       setLoading(true);
-const response = await fetch(`/api/patient_profile?aadhaar=${aadhaarNumber}`);
+      const response = await fetch(`/api/patient_profile?aadhaar=${aadhaarNumber}`);
       const data = await response.json();
 
       if (response.ok) {
@@ -110,7 +132,7 @@ const response = await fetch(`/api/patient_profile?aadhaar=${aadhaarNumber}`);
     );
   }
 
-  const reports = [
+  const reports: Report[] = [
     { name: "LASIK Report", date: "2024-05-12", type: "Surgery" },
     { name: "Typhoid Test", date: "2024-04-20", type: "Lab" },
     { name: "Dengue Test", date: "2024-03-15", type: "Lab" },
@@ -148,7 +170,6 @@ const response = await fetch(`/api/patient_profile?aadhaar=${aadhaarNumber}`);
                   <span>Dashboard</span>
                 </Link>
 
-
               {['Medications', 'Prescriptions'].map((item) => (
                 <button
                   key={item}
@@ -174,7 +195,6 @@ const response = await fetch(`/api/patient_profile?aadhaar=${aadhaarNumber}`);
               >
                 <span>Reports</span>
               </Link>
-
 
               <button 
                 onClick={handleLogout}
@@ -310,7 +330,7 @@ const response = await fetch(`/api/patient_profile?aadhaar=${aadhaarNumber}`);
                       <h4 className="font-semibold" style={{ color: '#3B3B1A' }}>Allergies</h4>
                     </div>
                     <div className="flex flex-wrap gap-2">
-                      {allergiesList.map((allergy:any, index:any) => (
+                      {allergiesList.map((allergy: string, index: number) => (
                         <span key={index} className="px-3 py-1 rounded-full text-sm" style={{ backgroundColor: '#E7EFC7', color: '#8A784E' }}>
                           {allergy}
                         </span>
@@ -324,7 +344,7 @@ const response = await fetch(`/api/patient_profile?aadhaar=${aadhaarNumber}`);
                       <h4 className="font-semibold" style={{ color: '#3B3B1A' }}>Conditions</h4>
                     </div>
                     <div className="flex flex-wrap gap-2">
-                      {conditionsList.map((condition:any, index:any) => (
+                      {conditionsList.map((condition: string, index: number) => (
                         <span key={index} className="px-3 py-1 rounded-full text-sm" style={{ backgroundColor: '#AEC8A4', color: '#3B3B1A' }}>
                           {condition}
                         </span>

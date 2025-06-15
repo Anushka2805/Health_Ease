@@ -69,7 +69,7 @@ const DoctorDashboard: React.FC = () => {
         {/* Welcome Section */}
         <div className="mb-8">
           <h2 className="text-4xl font-bold text-[#3B3B1A] mb-2">Good Morning, Dr. Shaivi ☀️</h2>
-          <p className="text-lg text-[#8A784E]/80">Ready to make a difference in your patients' lives today</p>
+          <p className="text-lg text-[#8A784E]/80">Ready to make a difference in your patients lives today</p>
         </div>
 
         {/* Quick Stats */}
