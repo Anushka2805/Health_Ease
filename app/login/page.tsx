@@ -1,69 +1,7 @@
-// "use client";
-
-// import React, { useState } from "react";
-// import Link from "next/link";
-
-// export default function LoginPage() {
-//   const [aadhaar, setAadhaar] = useState<string>("");
-//   const [otp, setOtp] = useState<string>("");
-//   const [password, setPassword] = useState<string>("");
-
-//   const handleLogin = (e: React.FormEvent) => {
-//     e.preventDefault();
-//     console.log("Login data:", { aadhaar, otp, password });
-//     // TODO: Add login logic
-//   };
-
-//   return (
-//     <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-[#b7c7a3] to-[#6b572f] font-sans">
-//       <div className="bg-white p-10 rounded-lg shadow-lg w-80 flex flex-col">
-//         <h1 className="text-center text-2xl font-bold mb-5">Welcome Back</h1>
-//         <form onSubmit={handleLogin} className="flex flex-col">
-//           <input
-//             type="text"
-//             placeholder="Aadhaar Number"
-//             value={aadhaar}
-//             onChange={(e) => setAadhaar(e.target.value)}
-//             className="mb-3 p-2 border border-gray-400 rounded-full text-sm outline-none"
-//             required
-//           />
-//           <input
-//             type="text"
-//             placeholder="OTP"
-//             value={otp}
-//             onChange={(e) => setOtp(e.target.value)}
-//             className="mb-3 p-2 border border-gray-400 rounded-full text-sm outline-none"
-//             required
-//           />
-//           <input
-//             type="password"
-//             placeholder="Password"
-//             value={password}
-//             onChange={(e) => setPassword(e.target.value)}
-//             className="mb-3 p-2 border border-gray-400 rounded-full text-sm outline-none"
-//             required
-//           />
-//           <button
-//             type="submit"
-//             className="bg-[#3f3418] text-white py-2 rounded-full mt-2 hover:bg-[#2e2612] transition-colors"
-//           >
-//             LOGIN
-//           </button>
-//         </form>
-//         <p className="text-center text-sm mt-3">
-//           Don&apos;t have an account?{" "}
-//           <Link href="/register" className="text-blue-600 underline">
-//             Register
-//           </Link>
-//         </p>
-//       </div>
-//     </div>
-//   );
-// }
-
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Eye, EyeOff, Shield, Fingerprint, Lock, Leaf } from "lucide-react";
+import Link from "next/link";
 
 export default function LoginPage() {
   const [aadhaar, setAadhaar] = useState<string>("");
@@ -72,12 +10,42 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [userRole, setUserRole] = useState<string>("patient");
+  const [loginError, setLoginError] = useState<string>("");
+  const [floatingElements, setFloatingElements] = useState<any[]>([]);
+
+  // Generate floating elements only on client side to avoid hydration mismatch
+  useEffect(() => {
+    const elements = [...Array(8)].map((_, i) => ({
+      id: i,
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      delay: Math.random() * 3,
+      duration: 3 + Math.random() * 2,
+      rotation: Math.random() * 360,
+    }));
+    setFloatingElements(elements);
+  }, []);
+
+  const handleAadhaarChange = (value: string) => {
+    // Remove non-digit chars and limit to 12 digits
+    const cleaned = value.replace(/\D/g, "").slice(0, 12);
+    setAadhaar(cleaned);
+    setLoginError(""); // Clear error on edit
+  };
 
   const handleLogin = () => {
+    if (aadhaar.length !== 12) {
+      setLoginError("Please enter full 12-digit Aadhaar number");
+      return;
+    }
     setIsLoading(true);
+    setLoginError(""); // Clear previous error
     console.log("Login data:", { aadhaar, otp, password, userRole });
-    // Simulate loading
-    setTimeout(() => setIsLoading(false), 2000);
+    // Simulate no user found
+    setTimeout(() => {
+      setIsLoading(false);
+      setLoginError("No user found");
+    }, 2000);
   };
 
   return (
@@ -89,22 +57,22 @@ export default function LoginPage() {
         <div className="absolute top-1/3 left-1/4 w-64 h-64 bg-[#8A784E] rounded-full mix-blend-overlay filter blur-xl opacity-10 animate-pulse"></div>
       </div>
 
-      {/* Floating organic elements */}
+      {/* Floating organic elements - only render after client-side mount */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(8)].map((_, i) => (
+        {floatingElements.map((element) => (
           <div
-            key={i}
+            key={element.id}
             className="absolute animate-float"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${3 + Math.random() * 2}s`,
+              left: `${element.left}%`,
+              top: `${element.top}%`,
+              animationDelay: `${element.delay}s`,
+              animationDuration: `${element.duration}s`,
             }}
           >
             <Leaf 
               className="w-4 h-4 text-[#E7EFC7] opacity-20 transform rotate-12" 
-              style={{ transform: `rotate(${Math.random() * 360}deg)` }}
+              style={{ transform: `rotate(${element.rotation}deg)` }}
             />
           </div>
         ))}
@@ -162,13 +130,13 @@ export default function LoginPage() {
                 <Fingerprint className="h-5 w-5 text-[#8A784E] group-focus-within:text-[#AEC8A4] transition-colors duration-300" />
               </div>
               <input
-                type="text"
-                placeholder="Aadhaar Number"
-                value={aadhaar}
-                onChange={(e) => setAadhaar(e.target.value)}
-                className="w-full pl-12 pr-4 py-4 bg-[#E7EFC7]/30 border border-[#AEC8A4]/30 rounded-2xl text-[#3B3B1A] placeholder-[#8A784E] focus:outline-none focus:border-[#AEC8A4] focus:bg-[#E7EFC7]/40 transition-all duration-300 backdrop-blur-sm hover:bg-[#E7EFC7]/35 font-medium"
-                required
-              />
+              type="text"
+              placeholder="Aadhaar Number"
+              value={aadhaar}
+              onChange={(e) => handleAadhaarChange(e.target.value)}
+              className="w-full pl-12 pr-4 py-4 bg-[#E7EFC7]/30 border border-[#AEC8A4]/30 rounded-2xl text-[#3B3B1A] placeholder-[#8A784E] focus:outline-none focus:border-[#AEC8A4] focus:bg-[#E7EFC7]/40 transition-all duration-300 backdrop-blur-sm hover:bg-[#E7EFC7]/35 font-medium"
+              required
+            />
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#AEC8A4]/0 via-[#AEC8A4]/0 to-[#8A784E]/0 group-focus-within:from-[#AEC8A4]/20 group-focus-within:via-transparent group-focus-within:to-[#8A784E]/20 transition-all duration-500 pointer-events-none"></div>
             </div>
 
@@ -212,23 +180,30 @@ export default function LoginPage() {
             </div>
 
             {/* Login Button */}
-            <button
-              onClick={handleLogin}
-              disabled={isLoading}
-              className="w-full py-4 px-6 bg-gradient-to-r from-[#AEC8A4] to-[#8A784E] text-[#3B3B1A] font-semibold rounded-2xl shadow-lg hover:shadow-[#AEC8A4]/30 transition-all duration-300 transform hover:scale-[1.02] hover:from-[#E7EFC7] hover:to-[#AEC8A4] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none relative overflow-hidden group"
-            >
-              <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12"></div>
-              <span className="relative z-10 flex items-center justify-center space-x-2">
-                {isLoading ? (
-                  <>
-                    <div className="w-5 h-5 border-2 border-[#3B3B1A]/30 border-t-[#3B3B1A] rounded-full animate-spin"></div>
-                    <span>Signing In...</span>
-                  </>
-                ) : (
-                  <span>LOGIN</span>
-                )}
-              </span>
-            </button>
+          <button
+            onClick={handleLogin}
+            disabled={isLoading || aadhaar.length !== 12}
+            className="w-full py-4 px-6 bg-gradient-to-r from-[#AEC8A4] to-[#8A784E] text-[#3B3B1A] font-semibold rounded-2xl shadow-lg hover:shadow-[#AEC8A4]/30 transition-all duration-300 transform hover:scale-[1.02] hover:from-[#E7EFC7] hover:to-[#AEC8A4] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none relative overflow-hidden group"
+          >
+            <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12"></div>
+            <span className="relative z-10 flex items-center justify-center space-x-2">
+              {isLoading ? (
+                <>
+                  <div className="w-5 h-5 border-2 border-[#3B3B1A]/30 border-t-[#3B3B1A] rounded-full animate-spin"></div>
+                  <span>Signing In...</span>
+                </>
+              ) : (
+                <span>LOGIN</span>
+              )}
+            </span>
+          </button>
+
+          {/* Error Message */}
+          {loginError && (
+            <p className="mt-2 text-center text-sm text-[#E7EFC7] bg-[#3B3B1A]/40 rounded-xl py-2 px-4">
+              {loginError}
+            </p>
+          )}
           </div>
 
           {/* Register link */}
@@ -236,7 +211,8 @@ export default function LoginPage() {
             <p className="text-[#AEC8A4] text-sm">
               Don't have an account?{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E7EFC7] to-[#AEC8A4] hover:from-[#E7EFC7] hover:to-[#8A784E] font-semibold transition-all duration-300 hover:underline cursor-pointer">
-                Register
+                <Link href="/register">
+                Register</Link>
               </span>
             </p>
           </div>

@@ -1,137 +1,6 @@
-// import React from "react";
-// import Link from "next/link";
-
-// export default function App() {
-//   return (
-//     <div className="bg-[#f5f6ef] min-h-screen font-sans">
-//       {/* Navbar */}
-//       <header className="flex justify-between items-center px-10 py-6">
-//         <h1 className="text-2xl font-bold">Healthease</h1>
-//         <nav className="flex gap-6 items-center">
-//           <Link href="#" className="text-[#1e1e1e] font-medium">Home</Link>
-//           <Link href="#" className="text-[#1e1e1e] font-medium">About Us</Link>
-//           <Link href="#" className="text-[#1e1e1e] font-medium">How to use</Link>
-//           <Link href="/login">
-//             <button className="bg-[#e6ebd9] text-sm px-4 py-2 rounded-full font-semibold">Login</button>
-//           </Link>
-//           <Link href="/register">
-//             <button className="bg-[#e6ebd9] text-sm px-4 py-2 rounded-full font-semibold">Register</button>
-//           </Link>
-//         </nav>
-//       </header>
-
-//       {/* Hero Section */}
-//       <section className="px-10 py-12 flex flex-col md:flex-row justify-between items-center gap-10">
-//         <div className="md:w-1/2">
-//           <div className="inline-block bg-[#d6d4b6] text-sm rounded-full px-3 py-1 mb-4">
-//             Health Matters
-//           </div>
-//           <h2 className="text-4xl font-bold leading-snug">
-//             More than Records.<br />
-//             <span className="text-[#7f6b39]">It’s Your Health Story</span>
-//           </h2>
-//           <div className="mt-6 flex items-center rounded-full bg-[#e6ebd9] p-2 shadow-inner">
-//             <input
-//               type="text"
-//               placeholder="Search your report"
-//               className="bg-transparent flex-1 outline-none px-2"
-//             />
-//             <button className="bg-[#3f3a1e] text-white rounded-full w-8 h-8 flex items-center justify-center mr-1">
-//               <span className="sr-only">Upload</span>
-//               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-//                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5-5 5 5M12 15V3" />
-//               </svg>
-//             </button>
-//             <button className="bg-[#3f3a1e] text-white rounded-full w-8 h-8 flex items-center justify-center">
-//               <span className="sr-only">Search</span>
-//               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-//                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z" />
-//               </svg>
-//             </button>
-//           </div>
-//         </div>
-//         <div className="md:w-1/2">
-//           <img
-//             src="https://t3.ftcdn.net/jpg/06/44/85/72/360_F_644857286_zVtIH5KLEYR4mhDLcrbPl5ZYnuuUYurA.jpg"
-//             alt="Doctor illustration"
-//             className="rounded-lg shadow-lg"
-//           />
-//         </div>
-//       </section>
-
-//       {/* What We Offer */}
-//       <section className="px-10 py-12">
-//         <div className="bg-[#e6ebd9] inline-block px-4 py-2 rounded-full font-medium mb-6">
-//           WHAT WE OFFER
-//         </div>
-//         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-//           <div className="bg-[#a3b38c] rounded-lg p-6 shadow-lg">
-//             <h4 className="font-bold mb-2">Digital Health Records for Patients</h4>
-//             <p className="text-sm mb-4">Patients can log in to view appointments, prescriptions, and health alerts — all in one place.</p>
-//             <button className="bg-[#3f3a1e] text-white text-xs px-4 py-2 rounded-full">EXPLORE THIS FEATURE</button>
-//           </div>
-//           <div className="bg-[#a3b38c] rounded-lg p-6 shadow-lg">
-//             <h4 className="font-bold mb-2">AI Symptom Chatbot</h4>
-//             <p className="text-sm mb-4">The chatbot gives instant advice for minor issues (like cough or fatigue), including home remedies.</p>
-//             <button className="bg-[#3f3a1e] text-white text-xs px-4 py-2 rounded-full">EXPLORE THIS FEATURE</button>
-//           </div>
-//           <div className="bg-[#a3b38c] rounded-lg p-6 shadow-lg">
-//             <h4 className="font-bold mb-2">Smart Reminders</h4>
-//             <p className="text-sm mb-4">Automatic alerts for appointments, vaccinations, or missed checkups via email or mobile.</p>
-//             <button className="bg-[#3f3a1e] text-white text-xs px-4 py-2 rounded-full">EXPLORE THIS FEATURE</button>
-//           </div>
-//         </div>
-//       </section>
-
-//       {/* Footer */}
-//       <footer className="bg-[#e6ebd9] py-8 px-10 mt-10 text-sm">
-//         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-//           <div>
-//             <h3 className="font-bold mb-2">Healthease</h3>
-//             <p className="mb-2 text-xs">More than records. It’s your healthstory</p>
-//           </div>
-//           <div>
-//             <h4 className="font-semibold mb-2">Product</h4>
-//             <ul className="space-y-1">
-//               <li>Features</li>
-//               <li>Pricing</li>
-//               <li>Case studies</li>
-//               <li>Reviews</li>
-//               <li>Updates</li>
-//             </ul>
-//           </div>
-//           <div>
-//             <h4 className="font-semibold mb-2">Company</h4>
-//             <ul className="space-y-1">
-//               <li>About</li>
-//               <li>Contact us</li>
-//               <li>Careers</li>
-//               <li>Culture</li>
-//               <li>Blog</li>
-//             </ul>
-//           </div>
-//           <div>
-//             <h4 className="font-semibold mb-2">Support</h4>
-//             <ul className="space-y-1">
-//               <li>Getting started</li>
-//               <li>Help center</li>
-//               <li>Server status</li>
-//               <li>Report a bug</li>
-//               <li>Chat support</li>
-//             </ul>
-//             <h4 className="font-semibold mt-4 mb-2">Contact us</h4>
-//             <p>📧contact@healthease.com</p>
-//             <p>📞 (+91) 48392-93013</p>
-//             <p>📍 New Delhi, India</p>
-//           </div>
-//         </div>
-//       </footer>
-//     </div>
-//   );
-// }
-
 "use client"
 import React, { useState, useEffect } from "react";
+import Link from 'next/link';
 import { Heart, Search, Upload, Menu, X, Shield, Clock, Users, ChevronRight, Star, Play } from "lucide-react";
 
 export default function App() {
@@ -240,12 +109,16 @@ export default function App() {
                     className="flex-1 outline-none px-4 py-2 text-gray-700 placeholder-gray-400"
                   />
                   <div className="flex items-center space-x-2">
+                    <Link href="/register">
                     <button className="bg-gradient-to-r from-[#7f6b39] to-[#a3b38c] text-white p-3 rounded-xl hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 group">
                       <Upload className="w-5 h-5 group-hover:scale-110 transition-transform" />
                     </button>
+                    </Link>
+                    <Link href="/register">
                     <button className="bg-gradient-to-r from-[#7f6b39] to-[#a3b38c] text-white p-3 rounded-xl hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 group">
                       <Search className="w-5 h-5 group-hover:scale-110 transition-transform" />
                     </button>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -318,14 +191,6 @@ export default function App() {
               </div>
               <div className="text-sm font-medium text-gray-700">Expert Team</div>
             </div>
-            <div className="flex flex-col items-center text-center space-y-3">
-              <div className="flex items-center space-x-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                ))}
-              </div>
-              <div className="text-sm font-medium text-gray-700">5-Star Rated</div>
-            </div>
           </div>
         </div>
       </section>
@@ -350,19 +215,17 @@ export default function App() {
               {
                 title: "Digital Health Records for Patients",
                 description: "Patients can log in to view appointments, prescriptions, and health alerts — all in one secure, easy-to-use platform.",
-                icon: "📋",
+                icon: "",
                 gradient: "from-[#a3b38c] to-[#8ea278]"
               },
               {
                 title: "AI Symptom Chatbot",
                 description: "Get instant, personalized advice for minor health issues with our advanced AI chatbot, available 24/7 for your convenience.",
-                icon: "🤖",
                 gradient: "from-[#7f6b39] to-[#6b5a32]"
               },
               {
                 title: "Smart Reminders",
                 description: "Never miss important health appointments or medications with intelligent, customizable reminders via email and mobile.",
-                icon: "⏰",
                 gradient: "from-[#a3b38c] to-[#8ea278]"
               }
             ].map((feature, index) => (
@@ -462,19 +325,16 @@ export default function App() {
               <h4 className="font-bold text-gray-800 mb-4">Contact us</h4>
               <div className="space-y-2 text-sm text-gray-600">
                 <p className="flex items-center space-x-2">
-                  <span>📧</span>
                   <a href="mailto:contact@healthease.com" className="hover:text-[#7f6b39] transition-colors">
                     contact@healthease.com
                   </a>
                 </p>
                 <p className="flex items-center space-x-2">
-                  <span>📞</span>
                   <a href="tel:+914839293013" className="hover:text-[#7f6b39] transition-colors">
                     (+91) 48392-93013
                   </a>
                 </p>
                 <p className="flex items-center space-x-2">
-                  <span>📍</span>
                   <span>New Delhi, India</span>
                 </p>
               </div>

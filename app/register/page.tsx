@@ -1,148 +1,119 @@
-// "use client";
-
-// import React, { useState } from "react";
-// import Link from "next/link";
-// import { useRouter } from "next/navigation";
-
-// export default function RegisterPage() {
-//   const [aadhaar, setAadhaar] = useState<string>("");
-//   const [otp, setOtp] = useState<string>("");
-//   const [password, setPassword] = useState<string>("");
-//   const [isDoctor, setIsDoctor] = useState<boolean>(false);
-
-//   const router = useRouter();
-
-//   const handleRegister = (e: React.FormEvent) => {
-//     e.preventDefault();
-
-//     console.log(isDoctor ? "Doctor registration" : "Patient registration", {
-//       aadhaar,
-//       otp,
-//       password,
-//     });
-
-//     // TODO: Replace this with your real registration API call
-//     setTimeout(() => {
-//       if (isDoctor) {
-//         router.push("/doctor_register"); // Example route after doctor registration
-//       } else {
-//         router.push("/patient_register"); // Example route after patient registration
-//       }
-//     }, 500);
-//   };
-
-//   return (
-//     <div className="min-h-screen flex justify-center items-center bg-gradient-to-r from-[#b7c7a3] to-[#6b572f] font-sans">
-//       <div className="bg-white p-8 rounded-lg shadow-lg flex flex-col w-[350px]">
-//         <h1 className="text-xl font-bold text-center mb-4">
-//           {isDoctor ? "Register as Doctor" : "Register as Patient"}
-//         </h1>
-//         <form onSubmit={handleRegister} className="flex flex-col">
-//           <input
-//             type="text"
-//             placeholder="Aadhaar Number"
-//             value={aadhaar}
-//             onChange={(e) => setAadhaar(e.target.value)}
-//             className="mb-3 p-2 border border-gray-300 rounded-full text-sm outline-none"
-//             required
-//           />
-//           <div className="flex justify-between mb-1">
-//             <button
-//               type="button"
-//               className="text-xs text-[#3f3418] underline"
-//             >
-//               Generate OTP
-//             </button>
-//             <button
-//               type="button"
-//               className="text-xs text-[#3f3418] underline"
-//             >
-//               Resend OTP
-//             </button>
-//           </div>
-//           <input
-//             type="text"
-//             placeholder="OTP"
-//             value={otp}
-//             onChange={(e) => setOtp(e.target.value)}
-//             className="mb-3 p-2 border border-gray-300 rounded-full text-sm outline-none"
-//             required
-//           />
-//           <input
-//             type="password"
-//             placeholder="Password"
-//             value={password}
-//             onChange={(e) => setPassword(e.target.value)}
-//             className="mb-3 p-2 border border-gray-300 rounded-full text-sm outline-none"
-//             required
-//           />
-//           <button
-//             type="submit"
-//             className="bg-[#3f3418] text-white py-2 rounded-full hover:bg-[#2e2612] mt-2"
-//           >
-//             REGISTER
-//           </button>
-//         </form>
-//         <p className="text-xs text-center mt-2">
-//           {isDoctor ? "Want to register as Patient?" : "Want to register as Doctor?"}{" "}
-//           <button
-//             className="text-[#3f3418] underline"
-//             onClick={() => setIsDoctor(!isDoctor)}
-//           >
-//             Switch
-//           </button>
-//         </p>
-//         <p className="text-xs text-center mt-2">
-//           Already have an account?{" "}
-//           <Link href="/login" className="text-[#3f3418] underline">
-//             Login
-//           </Link>
-//         </p>
-//       </div>
-//     </div>
-//   );
-// }
-
+//app/register/page.tsx
 "use client";
 import React, { useState } from "react";
-// import Link from "next/link";
+import Link from "next/link";
 
-import { User, UserCheck, Shield, Eye, EyeOff, Phone, Lock, CreditCard } from "lucide-react";
+import { User, UserCheck, Shield, Eye, EyeOff, CreditCard, Lock, CheckCircle } from "lucide-react";
 
 export default function RegisterPage() {
   const [aadhaar, setAadhaar] = useState("");
-  const [otp, setOtp] = useState("");
+  const [fullName, setFullName] = useState("");
   const [password, setPassword] = useState("");
   const [isDoctor, setIsDoctor] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [otpSent, setOtpSent] = useState(false);
+  const [aadhaarVerified, setAadhaarVerified] = useState(false);
+  const [isVerifyingAadhaar, setIsVerifyingAadhaar] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleRegister = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    setIsLoading(true);
-    
-    console.log(isDoctor ? "Doctor registration" : "Patient registration", {
-      aadhaar,
-      otp,
-      password,
+  const handleRegister = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  e.preventDefault();
+  setIsLoading(true);
+  
+  try {
+    const response = await fetch('/api/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        aadhaar: aadhaar.replace(/\s/g, ''),
+        fullName,
+        password,
+        userType: isDoctor ? 'doctor' : 'patient'
+      }),
     });
 
-    // Simulate API call
-    setTimeout(() => {
-      setIsLoading(false);
-      if (isDoctor) {
-        console.log("Redirecting to doctor dashboard");
-      } else {
-        console.log("Redirecting to patient dashboard");
-      }
-    }, 2000);
-  };
+    const data = await response.json();
 
-  const handleGenerateOTP = () => {
-    if (aadhaar.length === 12) {
-      setOtpSent(true);
-      console.log("OTP sent to registered mobile number");
+    if (response.ok) {
+      console.log("Registration successful:", data);
+      
+      // Store Aadhaar in localStorage for next step
+      localStorage.setItem('userAadhaar', aadhaar.replace(/\s/g, ''));
+      
+      // Redirect based on user type
+      if (isDoctor) {
+        console.log("Redirecting to doctor registration");
+        // after successful registration, right before redirect
+        localStorage.setItem("userFullName", fullName.trim());
+        window.location.href = '/doctor_register';
+      } else {
+        console.log("Redirecting to patient health profile");
+        localStorage.setItem("userFullName", fullName.trim());
+        window.location.href = `/patient_register?aadhaar=${aadhaar.replace(/\s/g, '')}`;
+      }
+    } else {
+      console.error("Registration failed:", data.error);
+      alert(data.error || "Registration failed");
+    }
+  } catch (error) {
+    console.error("Registration error:", error);
+    alert("Registration failed. Please try again.");
+  } finally {
+    setIsLoading(false);
+  }
+};
+
+  const handleVerifyAadhaar = async () => {
+    const cleanAadhaar = aadhaar.replace(/\s/g, '');
+    if (cleanAadhaar.length !== 12) {
+      alert("Please enter a valid 12-digit Aadhaar number");
+      return;
+    }
+
+    setIsVerifyingAadhaar(true);
+    
+    try {
+      console.log("Making request to /api/verify-aadhaar with:", cleanAadhaar);
+      
+      const response = await fetch('/api/verify-aadhaar', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          aadhaar: cleanAadhaar
+        }),
+      });
+
+      console.log("Response status:", response.status);
+      console.log("Response headers:", response.headers);
+
+      const responseText = await response.text();
+      console.log("Raw response:", responseText);
+
+      let data;
+      try {
+        data = JSON.parse(responseText);
+      } catch (parseError) {
+        console.error("Failed to parse JSON:", parseError);
+        console.error("Response was:", responseText);
+        alert("Server error: Invalid response format");
+        return;
+      }
+
+      if (response.ok) {
+        setAadhaarVerified(true);
+        console.log("Aadhaar verified:", data);
+      } else {
+        console.error("Aadhaar verification failed:", data.error);
+        alert(data.error || "Aadhaar verification failed");
+      }
+    } catch (error) {
+      console.error("Aadhaar verification error:", error);
+      alert("Aadhaar verification failed. Please try again.");
+    } finally {
+      setIsVerifyingAadhaar(false);
     }
   };
 
@@ -159,6 +130,10 @@ export default function RegisterPage() {
     const formatted = formatAadhaar(e.target.value);
     if (formatted.replace(/\s/g, '').length <= 12) {
       setAadhaar(formatted);
+      // Reset verification status when Aadhaar changes
+      if (aadhaarVerified) {
+        setAadhaarVerified(false);
+      }
     }
   };
 
@@ -167,6 +142,7 @@ export default function RegisterPage() {
       className="min-h-screen flex items-center justify-center p-4"
       style={{background: 'linear-gradient(135deg, #E7EFC7 0%, #AEC8A4 50%, #8A784E 100%)'}}
     >
+      
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
@@ -208,79 +184,79 @@ export default function RegisterPage() {
                   onChange={handleAadhaarChange}
                   className="w-full pl-10 pr-4 py-3 rounded-xl transition-all duration-200 text-lg tracking-wider focus:outline-none focus:ring-2"
                   style={{
+                    border: `2px solid ${aadhaarVerified ? '#22c55e' : '#AEC8A4'}`,
+                    backgroundColor: '#FEFFFE',
+                    color: '#3B3B1A'
+                  }}
+                  required
+                />
+                {aadhaarVerified && (
+                  <CheckCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-green-500" />
+                )}
+              </div>
+            </div>
+
+            {/* Aadhaar Verification Section */}
+            <div className="space-y-4">
+              <button
+                type="button"
+                onClick={handleVerifyAadhaar}
+                disabled={aadhaar.replace(/\s/g, '').length !== 12 || aadhaarVerified || isVerifyingAadhaar}
+                className="w-full text-white py-3 px-4 rounded-xl font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                style={{
+                  background: aadhaarVerified ? 'linear-gradient(135deg, #22c55e, #16a34a)' : 'linear-gradient(135deg, #AEC8A4, #8A784E)',
+                }}
+              >
+                {isVerifyingAadhaar ? (
+                  <div className="flex items-center justify-center">
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                    Verifying...
+                  </div>
+                ) : aadhaarVerified ? (
+                  <div className="flex items-center justify-center">
+                    <CheckCircle className="w-4 h-4 mr-2" />
+                    Aadhaar Verified
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-center">
+                    <Shield className="w-4 h-4 mr-2" />
+                    Verify Aadhaar
+                  </div>
+                )}
+              </button>
+
+              {aadhaarVerified && (
+                <div 
+                  className="rounded-xl p-4"
+                  style={{backgroundColor: '#dcfce7', borderColor: '#22c55e', borderWidth: '1px'}}
+                >
+                  <p className="text-sm font-medium text-green-700">
+                    ✓ Aadhaar number verified successfully
+                  </p>
+                </div>
+              )}
+            </div>
+
+            {/* Full Name Input */}
+            <div className="space-y-2">
+              <label className="block text-sm font-semibold" style={{color: '#3B3B1A'}}>
+                Full Name
+              </label>
+              <div className="relative">
+                <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5" style={{color: '#8A784E'}} />
+                <input
+                  type="text"
+                  placeholder="Enter your full name"
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  className="w-full pl-10 pr-4 py-3 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2"
+                  style={{
                     border: '2px solid #AEC8A4',
                     backgroundColor: '#FEFFFE',
                     color: '#3B3B1A'
                   }}
                   required
                 />
-              </div>
-            </div>
-
-            {/* OTP Section */}
-            <div className="space-y-4">
-              <div className="flex gap-3">
-                <button
-                  type="button"
-                  onClick={handleGenerateOTP}
-                  disabled={aadhaar.replace(/\s/g, '').length !== 12}
-                  className="flex-1 text-white py-3 px-4 rounded-xl font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-                  style={{
-                    background: 'linear-gradient(135deg, #AEC8A4, #8A784E)',
-                  }}
-                >
-                  <Phone className="w-4 h-4 inline mr-2" />
-                  Generate OTP
-                </button>
-                
-                {otpSent && (
-                  <button
-                    type="button"
-                    onClick={() => console.log("Resending OTP...")}
-                    className="px-6 py-3 rounded-xl font-semibold transition-all duration-200"
-                    style={{
-                      border: '2px solid #8A784E',
-                      color: '#8A784E',
-                      backgroundColor: '#E7EFC7'
-                    }}
-                  >
-                    Resend
-                  </button>
-                )}
-              </div>
-
-              {otpSent && (
-                <div 
-                  className="rounded-xl p-4"
-                  style={{backgroundColor: '#E7EFC7', borderColor: '#AEC8A4', borderWidth: '1px'}}
-                >
-                  <p className="text-sm font-medium" style={{color: '#3B3B1A'}}>
-                    ✓ OTP sent to your registered mobile number
-                  </p>
-                </div>
-              )}
-
-              <div className="space-y-2">
-                <label className="block text-sm font-semibold" style={{color: '#3B3B1A'}}>
-                  Enter OTP
-                </label>
-                <div className="relative">
-                  <Shield className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5" style={{color: '#8A784E'}} />
-                  <input
-                    type="text"
-                    placeholder="Enter 6-digit OTP"
-                    value={otp}
-                    onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                    className="w-full pl-10 pr-4 py-3 rounded-xl transition-all duration-200 text-lg tracking-widest text-center focus:outline-none focus:ring-2"
-                    style={{
-                      border: '2px solid #AEC8A4',
-                      backgroundColor: '#FEFFFE',
-                      color: '#3B3B1A'
-                    }}
-                    maxLength={6}
-                    required
-                  />
-                </div>
               </div>
             </div>
 
@@ -316,13 +292,10 @@ export default function RegisterPage() {
             </div>
 
             {/* Register Button */}
-            <button
-              type="submit"
-              onClick={handleRegister}
-              disabled={isLoading}
-              className="w-full text-white py-4 px-6 rounded-xl font-bold text-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+            {/* <button
+              
               style={{
-                background: 'linear-gradient(135deg, #8A784E, #3B3B1A)',
+                
               }}
             >
               {isLoading ? (
@@ -333,9 +306,25 @@ export default function RegisterPage() {
               ) : (
                 "REGISTER"
               )}
+            </button> */}
+
+            <button
+              type="submit"
+              onClick={handleRegister}
+              disabled={isLoading || !aadhaarVerified || !fullName.trim() || !password.trim()}
+              className="w-full text-white py-4 px-6 rounded-xl font-bold text-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+              style={{
+                background: 'linear-gradient(135deg, #8A784E, #3B3B1A)',
+              }}
+            >
+              Register
             </button>
+
           </div>
         </div>
+
+        
+
 
         {/* Role Switch */}
         <div className="mt-6 text-center">
