@@ -3,9 +3,20 @@
 import React, { useState } from "react";
 import { Upload, FileText, Calendar, User, Stethoscope, Plus, Eye, X } from "lucide-react";
 
+interface HealthRecord {
+  id: number;
+  title: string;
+  doctor: string;
+  date: string;
+  type: string;
+  bodySystem: string;
+  file: File | null;
+  filePreview: string | null;
+}
+
 const HealthRecordOrganizer = () => {
-  const [records, setRecords] = useState<any[]>([]);
-  const [form, setForm] = useState({
+  const [records, setRecords] = useState<HealthRecord[]>([]);
+  const [form, setForm] = useState<Omit<HealthRecord, 'id'>>({
     title: "",
     doctor: "",
     date: "",
@@ -68,7 +79,7 @@ const HealthRecordOrganizer = () => {
   };
 
   const getSystemBadgeColor = (system: string) => {
-    const colors = {
+    const colors: Record<string, string> = {
       'neuro': 'bg-[#8A784E] text-[#E7EFC7]',
       'cardio': 'bg-[#AEC8A4] text-[#3B3B1A]',
       'respiratory': 'bg-[#E7EFC7] text-[#3B3B1A]',
