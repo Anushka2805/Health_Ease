@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from 'react';
-import { Search, Mic, Camera, Calendar, Users, FileText, Brain, Bell, Settings, ChevronRight, Activity, Clock, Star, TrendingUp } from 'lucide-react';
+import { Search, Mic, Camera, Calendar, Users, FileText, Brain, Bell, Settings, ChevronRight, Activity, Clock, Star, TrendingUp, Heart } from 'lucide-react';
 
 interface Doctor {
   name: string;
@@ -227,64 +227,87 @@ const DoctorDashboard = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-[#AEC8A4] mt-16">
-        <div className="max-w-7xl mx-auto px-6 py-12">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div className="md:col-span-2">
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="w-8 h-8 bg-[#8A784E] rounded-lg flex items-center justify-center">
-                  <Activity className="w-5 h-5 text-[#E7EFC7]" />
+      <footer className="bg-gray-50 py-16 px-6 border-t border-gray-200">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-5 gap-6">
+            {/* About Healthease */}
+            <div className="col-span-1">
+              <div className="flex items-center space-x-2 mb-6">
+                <div className="w-8 h-8 bg-gradient-to-r from-[#7f6b39] to-[#a3b38c] rounded-lg flex items-center justify-center">
+                  <Heart className="w-5 h-5 text-white" />
                 </div>
-                <h4 className="text-xl font-bold text-[#3B3B1A]">Healthease</h4>
+                <h3 className="text-xl font-bold bg-gradient-to-r from-[#7f6b39] to-[#a3b38c] bg-clip-text text-transparent">
+                  Healthease
+                </h3>
               </div>
-              <p className="text-[#8A784E] mb-4 max-w-md">
-                Empowering healthcare professionals with intelligent tools for better patient care and streamlined workflows.
-              </p>
-              <div className="flex items-center space-x-4">
-                <div className="flex items-center text-[#8A784E]">
-                  <Star className="w-4 h-4 mr-1 fill-current" />
-                  <span className="text-sm">4.9/5 Rating</span>
-                </div>
-                <div className="flex items-center text-[#8A784E]">
-                  <TrendingUp className="w-4 h-4 mr-1" />
-                  <span className="text-sm">99% Uptime</span>
-                </div>
-              </div>
+              <p className="text-gray-600 leading-relaxed text-sm">
+Healthease is your digital health companion—securely store and manage medical records for smarter, organized healthcare              </p>
             </div>
-
-            <div>
-              <h5 className="font-semibold text-[#3B3B1A] mb-4">Product</h5>
-              <ul className="space-y-2">
-                {['Features', 'Pricing', 'Security', 'API'].map((item) => (
-                  <li key={item}>
-                    <a href="#" className="text-[#8A784E] hover:text-[#3B3B1A] transition-colors text-sm">
-                      {item}
-                    </a>
-                  </li>
-                ))}
+            
+            {/* Product */}
+            <div className="col-span-1">
+              <h4 className="font-bold text-gray-900 mb-6">Product</h4>
+              <ul className="space-y-3">
+                <li><a href="#" className="text-gray-600 hover:text-[#7f6b39] transition-colors text-sm">Features</a></li>
+                <li><a href="#" className="text-gray-600 hover:text-[#7f6b39] transition-colors text-sm">How it Works</a></li>
+                <li><a href="#" className="text-gray-600 hover:text-[#7f6b39] transition-colors text-sm">Mobile App (Coming Soon)</a></li>
+                <li><a href="#" className="text-gray-600 hover:text-[#7f6b39] transition-colors text-sm">Health Record Organizer</a></li>
+                <li><a href="#" className="text-gray-600 hover:text-[#7f6b39] transition-colors text-sm">Symptom Checker</a></li>
+                <li><a href="#" className="text-gray-600 hover:text-[#7f6b39] transition-colors text-sm">Reminders & Alerts</a></li>
               </ul>
             </div>
-
-            <div>
-              <h5 className="font-semibold text-[#3B3B1A] mb-4">Support</h5>
-              <ul className="space-y-2">
-                {['Help Center', 'Contact Us', 'Documentation', 'Community'].map((item) => (
-                  <li key={item}>
-                    <a href="#" className="text-[#8A784E] hover:text-[#3B3B1A] transition-colors text-sm">
-                      {item}
-                    </a>
-                  </li>
-                ))}
+            
+            {/* Company */}
+            <div className="col-span-1">
+              <h4 className="font-bold text-gray-900 mb-6">Company</h4>
+              <ul className="space-y-3">
+                <li><a href="#" className="text-gray-600 hover:text-[#7f6b39] transition-colors text-sm">About Us</a></li>
+                <li><a href="#" className="text-gray-600 hover:text-[#7f6b39] transition-colors text-sm">Careers at Healthease</a></li>
+                <li><a href="#" className="text-gray-600 hover:text-[#7f6b39] transition-colors text-sm">Privacy Policy</a></li>
+                <li><a href="#" className="text-gray-600 hover:text-[#7f6b39] transition-colors text-sm">Terms & Conditions</a></li>
               </ul>
+            </div>
+            
+            {/* Support */}
+            <div className="col-span-1">
+              <h4 className="font-bold text-gray-900 mb-6">Support</h4>
+              <ul className="space-y-3">
+                <li><a href="#" className="text-gray-600 hover:text-[#7f6b39] transition-colors text-sm">FAQs</a></li>
+                <li><a href="#" className="text-gray-600 hover:text-[#7f6b39] transition-colors text-sm">Help Center</a></li>
+                <li><a href="#" className="text-gray-600 hover:text-[#7f6b39] transition-colors text-sm">Contact Support</a></li>
+                <li><a href="#" className="text-gray-600 hover:text-[#7f6b39] transition-colors text-sm">Report an Issue</a></li>
+                <li><a href="#" className="text-gray-600 hover:text-[#7f6b39] transition-colors text-sm">User Guides</a></li>
+                <li><a href="#" className="text-gray-600 hover:text-[#7f6b39] transition-colors text-sm">Doctor Onboarding</a></li>
+              </ul>
+            </div>
+            
+            {/* Contact Us */}
+            <div className="col-span-1">
+              <h4 className="font-bold text-gray-900 mb-6">Contact Us</h4>
+              <div className="space-y-3 text-gray-600">
+                <p>
+                  <a href="mailto:support@healthease.com" className="hover:text-[#7f6b39] transition-colors text-sm">
+                    support@healthease.com
+                  </a>
+                </p>
+                <p>
+                  <a href="tel:+919876543210" className="hover:text-[#7f6b39] transition-colors text-sm">
+                    +91XXXXXXXXXX
+                  </a>
+                </p>
+                <p className="text-sm">IGDTUW Incubation Center</p>
+                <p className="text-sm">Delhi, India</p>
+                <p className="pt-2 text-sm">Mon–Fri, 9am–6pm IST</p>
+              </div>
             </div>
           </div>
           
-          <div className="border-t border-[#8A784E]/20 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-            <p className="text-[#8A784E] text-sm">© 2024 Healthease. All rights reserved.</p>
-            <div className="flex items-center space-x-4 mt-4 md:mt-0">
-              <a href="#" className="text-[#8A784E] hover:text-[#3B3B1A] text-sm">Privacy Policy</a>
-              <a href="#" className="text-[#8A784E] hover:text-[#3B3B1A] text-sm">Terms of Service</a>
-            </div>
+          <div className="border-t border-gray-300 mt-12 pt-8 text-center">
+            <p className="text-sm text-gray-500">
+              &copy; 2025 Healthease. All rights reserved. | 
+              <a href="#" className="hover:text-[#7f6b39] transition-colors mx-1">Privacy Policy</a> | 
+              <a href="#" className="hover:text-[#7f6b39] transition-colors mx-1">Terms of Service</a>
+            </p>
           </div>
         </div>
       </footer>
