@@ -1,3 +1,4 @@
+//app/doctor-register/page.tsx
 "use client";
 import React, { useState, useEffect } from "react";
 import { User, Building2, FileCheck, ArrowLeft, ArrowRight, CheckCircle, Shield, Clock, Award } from "lucide-react";
@@ -66,10 +67,22 @@ export default function DoctorRegistration() {
   };
 
   const handleSubmit = () => {
-    // This is where you'd actually use the formData
-    console.log('Form submitted:', formData);
-    // Add your submission logic here
-  };
+  console.log('Form submitted:', formData);
+
+  // Save to localStorage
+  localStorage.setItem("doctorProfile", JSON.stringify({
+    firstName: formData.personalInfo.firstName,
+    lastName: formData.personalInfo.lastName,
+    email: formData.personalInfo.email,
+    specialization: formData.professionalInfo.specialization,
+    experience: formData.professionalInfo.experience,
+    bio: formData.professionalInfo.bio,
+  }));
+
+  // Redirect to dashboard (optional)
+  window.location.href = "/pro_doc";
+};
+
 
   return (
     <div className="min-h-screen relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #E7EFC7 0%, #AEC8A4 100%)' }}>

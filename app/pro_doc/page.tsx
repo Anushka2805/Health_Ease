@@ -1,8 +1,24 @@
+//app/pro_doc/page.tsx
 "use client";
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import Link from "next/link";
 import { User, Calendar, Clock, Globe, MessageCircle, Users, FileText, Pill, Bell, Search, Settings, LogOut, Activity } from 'lucide-react';
 
 const DoctorDashboard: React.FC = () => {
+  const [doctorData, setDoctorData] = useState<{ firstName: string; lastName: string; email: string; specialization?: string; experience?: string; bio?: string }>({
+    firstName: '',
+    lastName: '',
+    email: '',
+  });
+
+  useEffect(() => {
+    const storedData = localStorage.getItem("doctorProfile");
+    if (storedData) {
+      setDoctorData(JSON.parse(storedData));
+    }
+  }, []);
+
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#E7EFC7] via-[#E7EFC7] to-[#AEC8A4]/30">
       
@@ -49,9 +65,12 @@ const DoctorDashboard: React.FC = () => {
             <button className="bg-white/60 backdrop-blur text-[#3B3B1A] px-6 py-3 rounded-xl hover:bg-white hover:shadow-md transition-all duration-200 font-medium border border-[#AEC8A4]/20">
               Patients
             </button>
-            <button className="bg-white/60 backdrop-blur text-[#3B3B1A] px-6 py-3 rounded-xl hover:bg-white hover:shadow-md transition-all duration-200 font-medium border border-[#AEC8A4]/20">
-              Reports
-            </button>
+            <Link href="/pro_doc/reports">
+              <button className="bg-white/60 backdrop-blur text-[#3B3B1A] px-6 py-3 rounded-xl hover:bg-white hover:shadow-md transition-all duration-200 font-medium border border-[#AEC8A4]/20">
+                Reports
+              </button>
+            </Link>
+
             <button className="bg-white/60 backdrop-blur text-[#3B3B1A] px-6 py-3 rounded-xl hover:bg-white hover:shadow-md transition-all duration-200 font-medium border border-[#AEC8A4]/20">
               Analytics
             </button>
@@ -68,7 +87,7 @@ const DoctorDashboard: React.FC = () => {
         
         {/* Welcome Section */}
         <div className="mb-8">
-          <h2 className="text-4xl font-bold text-[#3B3B1A] mb-2">Good Morning, Dr. Shaivi ☀️</h2>
+          <h2 className="text-4xl font-bold text-[#3B3B1A] mb-2">Good Morning</h2>
           <p className="text-lg text-[#8A784E]/80">Ready to make a difference in your patients lives today</p>
         </div>
 
@@ -161,7 +180,10 @@ const DoctorDashboard: React.FC = () => {
               {/* Profile Info */}
               <div className="flex-1 w-full">
                 <div className="text-center lg:text-left mb-8">
-                  <h3 className="text-4xl font-bold text-[#3B3B1A] mb-3">Dr. Shaivi Mehta</h3>
+                  <h3 className="text-4xl font-bold text-[#3B3B1A] mb-3">
+                    Dr. {doctorData.firstName} {doctorData.lastName}
+                  </h3>
+
                   <div className="flex items-center justify-center lg:justify-start gap-3 mb-4">
                     <span className="px-4 py-2 bg-gradient-to-r from-[#AEC8A4] to-[#8A784E] text-white rounded-full text-sm font-medium shadow-lg">
                       Dermatologist
@@ -183,7 +205,7 @@ const DoctorDashboard: React.FC = () => {
                       </div>
                       <div className="flex-1">
                         <p className="text-xs text-[#8A784E] font-medium uppercase tracking-wide">Email Address</p>
-                        <p className="font-semibold text-[#3B3B1A] text-sm">dr.shaivi@healthease.com</p>
+                        <p className="text-[#8A784E]/80">{doctorData.email}</p>
                       </div>
                     </div>
                     
