@@ -4,7 +4,7 @@
 
 ---
 
-## 🚀 Features
+## Features
 
 - **Patient Dashboard**
   - Unique patient ID on registration
@@ -27,14 +27,14 @@
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 - **Frontend:** Next.js
 - **Backend:** Next.js
 - **AI Chatbot Link:** https://healbot-client-rouge.vercel.app/
 ---
 
-## 📦 Installation & Setup
+## Installation & Setup
 
 ```bash
 # Clone the repo
