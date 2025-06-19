@@ -41,7 +41,7 @@
 git clone https://github.com/Shaivi1706/HealthEase.git
 
 # Go to project directory
-cd health-ease
+cd healthease
 
 # Install dependencies
 npm install
