@@ -32,7 +32,7 @@
 
 ## 🖼️ Screenshots
 
-| Patient Dashboard | Doctor View | AI chatbot |
+| Patient Dashboard | Doctor View |
 |------------------|-------------|
 | ![Patient Dashboard](./screenshots/patientdashboard.jpeg) | ![Doctor View](./screenshots/doctordashboard.jpeg) | 
 
